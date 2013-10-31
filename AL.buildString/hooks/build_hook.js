@@ -7,7 +7,7 @@
 var exec = require('child_process').exec;
 var fs = require('fs');
 
-exports.cliVersion = '>=3.X';
+exports.cliVersion = '>=3.2';
 var PS = '/';
 
 exports.init = function (logger, config, cli) {
@@ -19,12 +19,8 @@ exports.init = function (logger, config, cli) {
             currentBranch = "",
             gitHash = "";
 
-        if(!data.cli) {
-            data = cli;
-        }
-
         // is this a *nix system?
-        if( (data.cli && data.cli.sdk.path.indexOf("/") === -1) || (data.env && data.env.commands.sdk.indexOf("/") === -1) ) {
+        if( data.cli && data.cli.sdk && data.cli.sdk.path.indexOf("/") === -1 ) {
             // this is a windows box... change the pathSeperator
             PS = '\\';
         }
@@ -66,7 +62,7 @@ exports.init = function (logger, config, cli) {
 
                             data.tiapp.properties['build'] = { type: 'string', value: buildString };
 
-                            finished(data);
+                            finished();
                         });
                     });
                 });
