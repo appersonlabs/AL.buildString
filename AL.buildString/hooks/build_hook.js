@@ -66,7 +66,7 @@ exports.init = function (logger, config, cli) {
 
                             data.tiapp.properties['build'] = { type: 'string', value: buildString };
 
-                            finished(data);
+                            finished(null, data);
                         });
                     });
                 });
